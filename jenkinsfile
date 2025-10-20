@@ -1,14 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // PATH = "/usr/local/bin:$PATH"
-    }
-
-    tools {
-        python "Python 3.10"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -20,7 +12,6 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies..."
-                Example: Python project
                 sh 'pip install -r requirements.txt'
             }
         }
@@ -29,13 +20,6 @@ pipeline {
             steps {
                 echo "Running tests..."
                 sh 'pytest'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo "Building the project..."
-                sh 'npm run build'
             }
         }
     }
