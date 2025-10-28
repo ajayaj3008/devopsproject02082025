@@ -27,5 +27,15 @@ pipeline {
                 sh 'trivy fs --format table --output trivyscanproject-output.txt .'
             }
         }
+        stage('Sonar Analysis') {
+            steps {
+                withSonarQubeEnv('sonar') {
+                    sh ''' mvn sonar:sonar \
+                           -Dsonar.projectKey=BoardGame \
+                           -Dsonar.java.binaries=.
+                           -Dsonar.exclusions=**/trivy-filescanproject-output.txt '''
+                }
+            }
+        }
     }
 }
