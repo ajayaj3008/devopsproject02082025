@@ -2,35 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Git Checkout') {
             steps {
-                echo "Cloning repository..."
-                checkout scm
+                git 'https://github.com/ajayaj3008/devopsproject02082025.git'
             }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                echo "Installing dependencies..."
-                sh 'pip install -r requirements.txt'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                echo "Running tests..."
-                sh 'pytest'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully ✅'
-        }
-        failure {
-            echo 'Pipeline failed ❌'
         }
     }
 }
-
