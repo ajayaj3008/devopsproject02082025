@@ -3,9 +3,7 @@ pipeline {
     tools {
         maven 'maven3'
     }
-    environment {
-        SCANNER_HOME = tool 'sonar-scanner'
-    }
+
 
     stages {
         stage('Git Checkout') {
@@ -25,22 +23,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('File system scan by Trivy') {
-            steps {
-                echo 'Trivy Scan Started'
-                sh 'trivy fs --format table --output trivyscanproject-output.txt .'
-            }
-        }
-        stage('Sonar Analysis') {
-            steps {
-                withSonarQubeEnv ('sonar') {
-                 sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=BoardGame -Dsonar.projectKey=BoardGame \
-                                                        -Dsonar.java.binaries=. -Dsonar.exclusions=**/trivy-filescanproject-output.txt '''
-
-                
-                }
-            }
-        }
+        
     }
 }
-
