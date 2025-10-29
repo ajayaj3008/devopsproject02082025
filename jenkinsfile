@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven3'
+    }
 
 
     stages {
@@ -8,6 +11,19 @@ pipeline {
                 git 'https://github.com/ajayaj3008/devopsproject02082025.git'
             }
         }
+        stage('Maven Compile') {
+            steps {
+                echo 'Maven Compile Started'
+                sh 'mvn compile'
+            }
+        }
+        stage('Maven Test') {
+            steps {
+                echo 'Maven Test Started'
+                sh 'mvn test'
+            }
+        }
+        
         
     }
 }
